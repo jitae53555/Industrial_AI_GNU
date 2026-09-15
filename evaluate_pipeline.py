@@ -125,9 +125,9 @@ def extract_sample_features(s_path):
             pow_2x = np.sum(mag[band_2x])
             ratio_2x1x_dict[key] = float(pow_2x / (pow_1x + 1e-8))
 
-            # BPFI & BPFO Band Energy (+- 4 Hz band)
-            band_bpfi = (freqs >= (bpfi_freq - 4.0)) & (freqs <= (bpfi_freq + 4.0))
-            band_bpfo = (freqs >= (bpfo_freq - 4.0)) & (freqs <= (bpfo_freq + 4.0))
+            # BPFI & BPFO Band Energy (+- 5 Hz band around kinematics)
+            band_bpfi = (freqs >= (bpfi_freq - 5.0)) & (freqs <= (bpfi_freq + 5.0))
+            band_bpfo = (freqs >= (bpfo_freq - 5.0)) & (freqs <= (bpfo_freq + 5.0))
             bpfi_power_dict[key] = float(np.sum(mag[band_bpfi]))
             bpfo_power_dict[key] = float(np.sum(mag[band_bpfo]))
 
@@ -150,10 +150,10 @@ def extract_sample_features(s_path):
     ratios_3k_8k = [ratio_2x1x_dict[(r, a)] for r in range(3000, 9000, 1000) for a in AXES]
     max_2x1x_ratio = float(np.max(ratios_3k_8k)) if ratios_3k_8k else 0.0
 
-    # Feature 6: bpfi_bpfo_contrast (in 6000~8000 RPM range)
-    high_bpfi = np.sum([bpfi_power_dict[(r, a)] for r in [6000, 7000, 8000] for a in AXES])
-    high_bpfo = np.sum([bpfo_power_dict[(r, a)] for r in [6000, 7000, 8000] for a in AXES])
-    bpfi_bpfo_contrast = float((high_bpfi - high_bpfo) / (high_bpfi + high_bpfo + 1e-8))
+    # Feature 6: bpfi_bpfo_contrast (8000 RPM Z-axis specific contrast)
+    bpfi_8k_z = bpfi_power_dict.get((8000, 'Z'), 0.0)
+    bpfo_8k_z = bpfo_power_dict.get((8000, 'Z'), 0.0)
+    bpfi_bpfo_contrast = float((bpfi_8k_z - bpfo_8k_z) / (bpfi_8k_z + bpfo_8k_z + 1e-8))
 
     return {
         'low_rpm_rms': low_rpm_rms,
