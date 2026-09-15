@@ -28,7 +28,7 @@ random.seed(42)  # For reproducible sample selection
 
 # --- 2. Signal Loader ---
 def load_z8000_signal(s_path):
-    """Load Z-axis 8000 RPM signal starting from index 0 (153,600 pt)."""
+    """Load Z-axis 8000 RPM steady-state signal."""
     pattern = os.path.join(s_path, "Raw_Z_8000*")
     cand = glob.glob(pattern)
     if not cand:
@@ -36,8 +36,12 @@ def load_z8000_signal(s_path):
 
     fpath = cand[0]
     try:
-        df = pd.read_csv(fpath, nrows=MAX_PTS, header=None, engine='c', dtype=np.float32)
-        return df.values.ravel()
+        df = pd.read_csv(fpath, skiprows=SKIP_PTS, nrows=MAX_PTS, header=None, engine='c', dtype=np.float32)
+        vals = df.values.ravel()
+        if len(vals) == 0:
+            df = pd.read_csv(fpath, nrows=MAX_PTS, header=None, engine='c', dtype=np.float32)
+            vals = df.values.ravel()
+        return vals
     except Exception:
         return None
 
