@@ -132,9 +132,9 @@ def extract_sample_features(s_path):
             pow_2x = np.sum(mag[band_2x])
             ratio_2x1x_dict[key] = float(pow_2x / (pow_1x + 1e-8))
 
-            # BPFI & BPFO Band Energy (+- 5 Hz band around kinematics)
-            band_bpfi = (freqs >= (bpfi_freq - 5.0)) & (freqs <= (bpfi_freq + 5.0))
-            band_bpfo = (freqs >= (bpfo_freq - 5.0)) & (freqs <= (bpfo_freq + 5.0))
+            # BPFI & BPFO Band Energy (+- 4 Hz band around kinematics)
+            band_bpfi = (freqs >= (bpfi_freq - 4.0)) & (freqs <= (bpfi_freq + 4.0))
+            band_bpfo = (freqs >= (bpfo_freq - 4.0)) & (freqs <= (bpfo_freq + 4.0))
             bpfi_power_dict[key] = float(np.sum(mag[band_bpfi]))
             bpfo_power_dict[key] = float(np.sum(mag[band_bpfo]))
 
