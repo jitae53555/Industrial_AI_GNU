@@ -1,0 +1,26 @@
+{
+    "BLIND_SAMPLE_01": {
+        "sample_id": "DH_KF5600C__20180619_1440",
+        "machine_type": "DH_KF5600C",
+        "true_label": "D",
+        "ground_truth": "NG"
+    },
+    "BLIND_SAMPLE_02": {
+        "sample_id": "DH_KF5600C__20181119_1744",
+        "machine_type": "DH_KF5600C",
+        "true_label": "A",
+        "ground_truth": "OK"
+    },
+    "BLIND_SAMPLE_03": {
+        "sample_id": "DH_KF5600C__20180727_0946",
+        "machine_type": "DH_KF5600C",
+        "true_label": "D",
+        "ground_truth": "NG"
+    },
+    "BLIND_SAMPLE_04": {
+        "sample_id": "DH_KF5600__20180907_0850",
+        "machine_type": "DH_KF5600",
+        "true_label": "A",
+        "ground_truth": "OK"
+    }
+}

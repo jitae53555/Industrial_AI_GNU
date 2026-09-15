@@ -1,0 +1,28 @@
+# Data & Raw Files (Large Datasets)
+data/raw/
+data/processed/
+*.parquet
+*.txt
+*.csv
+*.xlsx
+
+# Blind Charts PNGs (Keep JSON, exclude images if large)
+blind_test_charts/*.png
+
+# Environment & Secrets
+.env
+.env.*
+
+# Python Cache & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# IDE & OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
